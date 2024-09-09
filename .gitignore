@@ -1,0 +1,8 @@
+# DrawIO files
+.drawio.bkp
+.drawio.dtmp
+
+# Other files
+.dtmp
+.DS_Store
+.vs
