@@ -1,4 +1,5 @@
 # Drivers
+
 Drivers are useful extension of modules attached to the Raspberry Pi Pico. In all cases they simplify writing Python code to handle information read, or written to a module without the complexity of managing the complex coded required to do so.
 
 Each lesson with an attached module is paired with a driver (GPS, SD Card, Atmospheric).
@@ -9,7 +10,7 @@ This driver was originally found within the [micropython-IMU](https://github.com
 
 ## GT-U Driver for Raspberry Pi Pico
 
-This driver is perhaps less a driver and more a simplification of handling the streaming inputs from the GPS module itself. It was written specifically for the HABlogger project.
+This driver is perhaps less a driver and more a simplification of handling the streaming inputs from the GPS module itself. It was written specifically for this project.
 
 ### GPS data returned from GT-U7 module
 
