@@ -14,10 +14,10 @@ def log_error(message, error=None):
     print("[ERROR]:", message)
     if error:
         print("Details:", error)
-    print("Hint: Check the wiring or follow troubleshooting steps from previous lessons.\n")
+    print("Hint: Review the detailed error message. Check the wiring or follow troubleshooting steps from previous lessons.\n")
 
     
-def init_oled():
+def init_oled(text="SSD1306_OLED: OK", ticker=3):
     """Initialize the SSD1306 OLED Display module"""
     # https://www.tomshardware.com/how-to/oled-display-raspberry-pi-pico
     i2c = I2C(0,
@@ -28,11 +28,13 @@ def init_oled():
     oled = SSD1306_I2C(128, 64, i2c) # width is 128, height is 64
     
     oled.fill(0)   # Clear the OLED display object
-    oled.text("Hello, students!", 0, 0)
-    oled.show()    # Display the text
-    time.sleep(2)  # Wait for `x` seconds
-    oled.fill(0)   # Reset the display
-    oled.show()    # Display the reset display
+    
+    if text:
+        oled.text(text, 0, 0)
+        oled.show()       # Display the text
+        time.sleep(ticker)  # Wait for `x` seconds
+        oled.fill(0)      # Reset the display
+        oled.show()       # Display the reset display
     
     return oled
 
@@ -177,7 +179,7 @@ if __name__ == "__main__":
     # Uncomment these lines after wiring this module.
     
     try:
-        oled = init_oled()      # Initialize the OLED display module
+        oled = init_oled("Hello, students!")  # Initialize the OLED display module with a custom message.
     except Exception as e:
         log_error("Failed to display message on the OLED display.", e)
         raise SystemExit
@@ -189,11 +191,11 @@ if __name__ == "__main__":
     try:
         ...
         # -------------------------------------------------------------------------------- #
-        # MODULE 1 (START): SD Card
+        # MODULE 2 (START): SD Card
         # Uncomment these lines after wiring this module.
         
-        sd_dir = '/sd'          # Directory created on SD card at root '/'. Expected format is '/<string>'. Example: '/sd'
-        init_sdcard(sd_dir)     # Initialize the SD Card
+        # sd_dir = '/sd'          # Directory created on SD card at root '/'. Expected format is '/<string>'. Example: '/sd'
+        # init_sdcard(sd_dir)     # Initialize the SD Card
         
         # MODULE 2 (END)
         # -------------------------------------------------------------------------------- #
