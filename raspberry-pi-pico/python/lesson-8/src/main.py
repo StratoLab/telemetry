@@ -42,8 +42,8 @@ def init_oled(text="SSD1306_OLED: OK", ticker=3):
 def init_bmp180(test=True):
     """Initialize the BMP180 module"""
     bus =  I2C(0,
-               sda=Pin(16),
-               scl=Pin(17),
+               sda=Pin(18),
+               scl=Pin(19),
                freq=400000)
 
     bmp180 = bmp180driver.BMP180(bus)
@@ -170,23 +170,23 @@ def delete_files_from_sdcard_folder(folder):
             
 if __name__ == "__main__":
     """Main function"""
+    
     led = Pin(25, Pin.OUT)  # Assign onboard LED to variable
     led.toggle()            # Toggle on the onboard LED to indicate processing has started
-    
     
     # -------------------------------------------------------------------------------- #
     # MODULE 1 (START): SSD1306 OLED Display
     # Uncomment these lines after wiring this module.
     
-    try:
-        oled = init_oled("Hello, students!")  # Initialize the OLED display module with a custom message.
-    except Exception as e:
-        log_error("Failed to display message on the OLED display.", e)
-        raise SystemExit
+    # try:
+    #     oled = init_oled("Hello, students!", 1) # Initialize the OLED display module with custom message.
+    #                                             # Also set the number of seconds the message is displayed.
+    # except Exception as e:
+    #     log_error("Failed to display message on the OLED display.", e)
+    #     raise SystemExit
     
     # MODULE 1 (END)
     # -------------------------------------------------------------------------------- #
-    
     
     try:
         ...
@@ -200,39 +200,64 @@ if __name__ == "__main__":
         # MODULE 2 (END)
         # -------------------------------------------------------------------------------- #
         
-    #    bmp180 = init_bmp180()  # Initialize the BMP_180 (Temp/Pressure module)
-    #    gtu7 = init_gtu7()      # Initialize the GT-U7 (GPS module)
+        
+        # -------------------------------------------------------------------------------- #
+        # MODULE 3 (START): BMP180 Sensor
+        # Uncomment these lines after wiring this module.
+        
+        # bmp180 = init_bmp180()  # Initialize the BMP_180 (Temp/Pressure module)
+    
+        # MODULE 3 (END)
+        # -------------------------------------------------------------------------------- #
+        
+        
+        # -------------------------------------------------------------------------------- #
+        # MODULE 4 (START): GTU-7 Sensor
+        # Uncomment these lines after wiring this module.
+    
+        # gtu7 = init_gtu7()      # Initialize the GT-U7 (GPS module)
+    
+        # MODULE 4 (END)
+        # -------------------------------------------------------------------------------- #
 
-    #    delete_files_from_sdcard_folder('/sd') # Uncomment this to delete a folder and its contents.
+
+        # -------------------------------------------------------------------------------- #
+        # MODULE 5 (START): Processing data from all modules
+        # Uncomment these lines after wiring this module.
+    
+        # delete_files_from_sdcard_folder('/sd') # Uncomment this to delete a folder and its contents.
         
         # Start a new thread and power off the OLED after a certain amount of time (in seconds)
-    #    oled_off = lambda: (time.sleep(30), oled.poweroff())
-    #    _thread.start_new_thread(oled_off, ())
+        # oled_off = lambda: (time.sleep(30), oled.poweroff())
+        # _thread.start_new_thread(oled_off, ())
 
-    #    csv_header = [
-    #        "date",
-    #        "time",
-    #        "latitude",
-    #        "longitude",
-    #        "velocity",
-    #        "numSatellites",
-    #        "temperature",
-    #        "pressure",
-    #        "altitude",
-    #        ]
-    #    write_csv_to_sdcard(sd_dir, "data.csv", None, csv_header) # Initialize CSV header
-        
-    #    for x in range(10):
-    #        temp = bmp180.temperature  # Capture temperature, assign to `temp` variable
-    #        p = bmp180.pressure        # Capture pressure, assign to `p` variable
-    #        altitude = bmp180.altitude # Capture altitude, assign to `altitude` variable
+        # csv_header = [
+        #     "date",
+        #     "time",
+        #     "latitude",
+        #     "longitude",
+        #     "velocity",
+        #     "numSatellites",
+        #     "temperature",
+        #     "pressure",
+        #     "altitude",
+        #     ]
+        # write_csv_to_sdcard(sd_dir, "data.csv", None, csv_header) # Initialize CSV header
             
-    #        gpgga = gtu7.gpgga() # Capture NMEA GPGGA GPS data (http://aprs.gids.nl/nmea/#gga)
-    #        gprmc = gtu7.gprmc() # Capture NMEA GPRMC GPS data (http://aprs.gids.nl/nmea/#rmc)
-            
-    #        data = [gprmc[0], gprmc[1], gprmc[2], gprmc[3], gprmc[4], gpgga[3], temp, p, altitude]
-            
-    #        write_csv_to_sdcard(sd_dir, "data.csv", data)
+        # for x in range(10):
+        #     temp = bmp180.temperature  # Capture temperature, assign to `temp` variable
+        #     p = bmp180.pressure        # Capture pressure, assign to `p` variable
+        #     altitude = bmp180.altitude # Capture altitude, assign to `altitude` variable
+                
+        #     gpgga = gtu7.gpgga() # Capture NMEA GPGGA GPS data (http://aprs.gids.nl/nmea/#gga)
+        #     gprmc = gtu7.gprmc() # Capture NMEA GPRMC GPS data (http://aprs.gids.nl/nmea/#rmc)
+                
+        #     data = [gprmc[0], gprmc[1], gprmc[2], gprmc[3], gprmc[4], gpgga[3], temp, p, altitude]
+                
+        #     write_csv_to_sdcard(sd_dir, "data.csv", data)
+
+        # MODULE 5 (END): Processing data from all modules
+        # -------------------------------------------------------------------------------- #
             
     except Exception as e:
         log_error("Failed to initialize module.", e)
@@ -244,7 +269,7 @@ if __name__ == "__main__":
         raise SystemExit
        
     # Read all the rows from the CSV and print them to the console.
-    #for row in read_csv_from_sdcard(sd_dir, "data.csv"):
-    #    print(row)
+    # for row in read_csv_from_sdcard(sd_dir, "data.csv"):
+    #     print(row)
     
     led.toggle() # Toggle off the onboard LED to indicate processing has completed
