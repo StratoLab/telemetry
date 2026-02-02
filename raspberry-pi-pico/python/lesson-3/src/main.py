@@ -7,8 +7,8 @@ if __name__ == "__main__" :
     
     # Initialize I2C using available I2C pins
     bus =  I2C(0,
-               scl=Pin(17),
-               sda=Pin(16),
+               scl=Pin(19),
+               sda=Pin(18),
                freq=100000)
     
     # Initialize BMP180 with previously defined I2C config
